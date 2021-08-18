@@ -138,7 +138,7 @@ foreach ($_SESSION['shoplist'] as $s) {
 <script>
     function checkForm() {
         const fd = new FormData(document.form1);
-        fetch('cartdata-insert.php', {
+        fetch('order-list-insert.php', {
                 method: 'POST',
                 body: fd
             })
@@ -147,7 +147,7 @@ foreach ($_SESSION['shoplist'] as $s) {
                 console.log(obj);
                 if (obj.success) {
                     alert('訂單成功送出')
-                    window.location = "order-detail.php";
+                    window.location = "order-detail-insert.php";
                 } else {
                     alert(obj.error);
                 }

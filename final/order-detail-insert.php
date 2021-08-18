@@ -2,7 +2,7 @@
 include __DIR__ . '/partials/init.php';
 header('Content-Type: application/json');
 
-// 查詢母訂單的編號
+// 查詢母訂單的編號 (搜尋最新一筆資料)
 $sqls = "SELECT * FROM `order_list` ORDER BY `sid` DESC limit 1";
 $row = $pdo->query($sqls)->fetch();
 
