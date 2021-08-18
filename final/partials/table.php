@@ -55,7 +55,7 @@
                 <td><?php echo $r["brand_company"]; ?></td>
                 <td><?php echo $r["quantity"]; ?></td>
                 <td><?php echo '$' . $r["price"]; ?></td>
-                <td class="special-offer"><?php echo  $r["special offer"]; ?></td>
+                <td class="special-offer"><?php echo  $r["special_offer"]; ?></td>
                 <td><?php echo $r["Edible_Method"]; ?></td>
                 <td><?php echo $r["place_origin"]; ?></td>
                 <td><?php echo $r["EXP"]; ?></td>
