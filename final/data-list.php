@@ -1,6 +1,6 @@
 <?php
 include __DIR__ . "./partials/database.php";
-
+include __DIR__. "./partials/init.php";
 // 固定每一頁最多幾筆
 $perPage = 10;
 
