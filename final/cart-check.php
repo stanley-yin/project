@@ -83,42 +83,44 @@ foreach ($_SESSION['shoplist'] as $s) {
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="row">
-                <label for="">送貨方式</label>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>自取</option>
-                    <option>宅配</option>
-                </select>
-            </div>
-            <div class="row">
-                <label for="">付款方式</label>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>信用卡</option>
-                    <option>銀行轉帳</option>
-                </select>
-            </div>
-        </div>
-        <div class="col">
-             <h5 class="card-title">送貨資料</h5>
+            <h5 class="card-title">送貨資料</h5>
             <form name="form1" onsubmit="checkForm(); return false;">
                 <div class="form-group">
-                    <label for="name">收件人姓名</label>
-                    <input type="text" class="form-control" id="name" name="name" require>
-                    <small class="form-text"></small>
-                    <!-- 必填 = require -->
+                    <label for="delivery">送貨方式</label>
+                    <select class="form-select" aria-label="Default select example" id="delivery" name="delivery">
+                        <option selected value="自取">自取</option>
+                        <option value="宅配">宅配</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="email">收件人電話</label>
-                    <input type="text" class="form-control" id="email" name="email" require>
+                    <label for="payment">付款方式</label>
+                    <select class="form-select" aria-label="Default select example" id="payment" name="payment">
+                        <option selected value="信用卡">信用卡</option>
+                        <option value="銀行轉帳">銀行轉帳</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="addressee_name1">收件人姓名</label>
+                    <input type="text" class="form-control" id="addressee_name1" name="addressee_name">
+                    <!-- <small class="form-text"></small> -->
+                </div>
+                <div class="form-group">
+                    <label for="mobile">收件人電話</label>
+                    <input type="text" class="form-control" id="mobile" name="mobile">
                     <small class="form-text"></small>
                 </div>
                 <div class="form-group">
-                    <label for="email">收件人地址</label>
-                    <input type="text" class="form-control" id="email" name="email" require>
+                    <label for="address">收件人地址</label>
+                    <input type="text" class="form-control" id="address" name="address">
                     <small class="form-text"></small>
                 </div>
+                <input type="hidden" name="total" value="<?=$total?>">
+                <button type="submit" class="btn btn-primary">送出訂單</button>
+            </form>
         </div>
-        <!-- 按鈕 -->
+
+
+        <!-- 按鈕
         <div class="col">
             <div class="row">
                 <a href="data-list.php">
@@ -128,10 +130,31 @@ foreach ($_SESSION['shoplist'] as $s) {
             </div>
         </div>
     </div>
-</div>
-
+</div> -->
 
 
 
 <?php include __DIR__ . '/partials/script.php' ?>
+<script>
+    function checkForm() {
+        const fd = new FormData(document.form1);
+        fetch('cartdata-insert.php', {
+                method: 'POST',
+                body: fd
+            })
+            .then(r => r.json())
+            .then(obj => {
+                console.log(obj);
+                if (obj.success) {
+                    alert('訂單成功送出')
+                    window.location = "order-detail.php";
+                } else {
+                    alert(obj.error);
+                }
+            })
+            .catch(error => {
+                console.log('error', error);
+            })
+    }
+</script>
 <?php include __DIR__ . '/partials/html-foot.php' ?>
