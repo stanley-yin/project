@@ -16,11 +16,11 @@ if (!isset($_SESSION['shoplist'])) {
 
 // 計算總金額
 $total = 0;
-foreach($_SESSION['shoplist'] as $s){
-    if($s['special_offer']=='暫無'){
-        $total += $s['price']*$s['num'];
-    }else{
-        $total += $s['special_offer']*$s['num'];
+foreach ($_SESSION['shoplist'] as $s) {
+    if ($s['special_offer'] == '暫無') {
+        $total += $s['price'] * $s['num'];
+    } else {
+        $total += $s['special_offer'] * $s['num'];
     }
 }
 ?>
@@ -63,7 +63,7 @@ foreach($_SESSION['shoplist'] as $s){
                     </tr>
                 <?php endforeach; ?>
             </tbody>
-            <!-- 總total金額 -->
+            <!-- 總total金額列 -->
             <tbody>
                 <tr>
                     <td>Total</td>
@@ -71,7 +71,7 @@ foreach($_SESSION['shoplist'] as $s){
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>$<?=$total?></td>
+                    <td>$<?= $total ?></td>
                 </tr>
             </tbody>
         </table>
@@ -84,20 +84,41 @@ foreach($_SESSION['shoplist'] as $s){
     <div class="row">
         <div class="col">
             <div class="row">
-                <label for="">選擇送貨方式</label>
+                <label for="">送貨方式</label>
                 <select class="form-select" aria-label="Default select example">
                     <option selected>自取</option>
                     <option>宅配</option>
                 </select>
             </div>
             <div class="row">
-                <label for="">選擇付款方式</label>
+                <label for="">付款方式</label>
                 <select class="form-select" aria-label="Default select example">
                     <option selected>信用卡</option>
                     <option>銀行轉帳</option>
                 </select>
             </div>
         </div>
+        <div class="col">
+             <h5 class="card-title">送貨資料</h5>
+            <form name="form1" onsubmit="checkForm(); return false;">
+                <div class="form-group">
+                    <label for="name">收件人姓名</label>
+                    <input type="text" class="form-control" id="name" name="name" require>
+                    <small class="form-text"></small>
+                    <!-- 必填 = require -->
+                </div>
+                <div class="form-group">
+                    <label for="email">收件人電話</label>
+                    <input type="text" class="form-control" id="email" name="email" require>
+                    <small class="form-text"></small>
+                </div>
+                <div class="form-group">
+                    <label for="email">收件人地址</label>
+                    <input type="text" class="form-control" id="email" name="email" require>
+                    <small class="form-text"></small>
+                </div>
+        </div>
+        <!-- 按鈕 -->
         <div class="col">
             <div class="row">
                 <a href="data-list.php">
@@ -109,7 +130,6 @@ foreach($_SESSION['shoplist'] as $s){
     </div>
 </div>
 
-<!-- 按鈕 -->
 
 
 
