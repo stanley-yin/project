@@ -42,14 +42,14 @@ include __DIR__ . '/partials/init.php';
                         <td> <?= $s['sid'] ?> </td>
                         <td> <img src="<?= $s['image']?> " alt=""></td>
                         <td> <?= $s['Name'] ?> </td>
-                        <td> <?= $p ?> </td>
+                        <td> $<?= $p ?> </td>
                         <td>
                             <a href="update.php?sid=<?= $s['sid'] ?>&num=-1"><i class="fas fa-minus"></i></a>
                             <?= $s['num'] ?>
                             <a href="update.php?sid=<?= $s['sid'] ?>&num=1"><i class="fas fa-plus"></i></a>
                         </td>
-                        <td> <?= $s['num']*$p ?> </td>
-                        <td><a href="delete.php?sid=<?= $s['sid']?>"><i class="fas fa-times"></i></a></td>
+                        <td> $<?= $s['num']*$p ?> </td>
+                        <td><a href="item-delete.php?sid=<?= $s['sid']?>"><i class="fas fa-times"></i></a></td>
 
                     </tr>
                 <?php endforeach; ?>
