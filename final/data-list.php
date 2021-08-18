@@ -57,7 +57,7 @@ if ($totalRows != 0) {
 }
 
 ?>
-
+<?php include __DIR__.'./partials/navbar.php' ?>
 <!DOCTYPE html>
 <html>
 
