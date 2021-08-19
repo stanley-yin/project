@@ -8,12 +8,15 @@ include __DIR__ . '/partials/init.php';
 <?php include __DIR__ . '/partials/navbar.php' ?>
 
 
-<?php
-if (!isset($_SESSION['shoplist'])) {
-    echo "購物車沒有商品";
-    exit;
-}
 
+<?php if (!isset($_SESSION['shoplist'])):?>
+    <div class="container text-center pt-5">
+        <h3>購物車沒有商品</h3>
+    </div>
+    <?php exit;?>
+<?php endif;?>
+
+<?php
 // 計算總金額
 $total = 0;
 foreach ($_SESSION['shoplist'] as $s) {

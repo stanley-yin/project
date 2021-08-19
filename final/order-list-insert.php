@@ -22,7 +22,7 @@ $sql = "INSERT INTO `order_list`(
         )";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([
-    $_SESSION['user']['account'],
+    '1',
     $_POST['total'],
     $_POST['payment'],
     $_POST['delivery'],
