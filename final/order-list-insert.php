@@ -5,8 +5,6 @@ header('Content-Type: application/json');
 
 $output = [
     'success' => false,
-    'error' =>'',
-    'code' => 0,
     'rowCount' =>0,
     'postData' => $_POST,
 ];
