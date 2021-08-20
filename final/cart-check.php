@@ -5,7 +5,7 @@
 <?php include __DIR__ . '/partials/navbar.php' ?>
 
 <!-- 購物車沒有物品時顯現 -->
-<?php if (!isset($_SESSION['shoplist'])) : ?>
+<?php if (!isset($_SESSION['shoplist']) or $_SESSION['shoplist']==[]) : ?>
     <div class="container text-center pt-5">
         <h3>購物車沒有商品</h3>
     </div>
