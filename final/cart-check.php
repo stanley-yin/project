@@ -159,7 +159,7 @@ foreach ($_SESSION['shoplist'] as $s) {
                             console.log(obj);
                             if (obj.success) {
                                 alert('訂單成功送出')
-                                window.location = "order-detail-insert.php";
+                                window.location = "./order-detail-insert.php";
                             } else {
                                 alert(obj.error);
                             }

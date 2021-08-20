@@ -5,20 +5,28 @@
 
 <?php
 
-// 搜尋列表
+$qs=[];
+// 搜尋關鍵字
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
-$where = 'WHERE 1 ';            
+
+// 搜尋種類
+$cate = isset($_GET['cate']) ? $_GET['cate'] : '';
+// 搜尋時間條件
+$date = isset($_GET['date']) ? $_GET['date'] : '';
+$where = isset($_GET['date']) ? sprintf(" WHERE `order_date` LIKE '%s%s%s'",'%',$_GET['date'],'%'): 'WHERE 1';
 if (!empty($keyword)) {
-    $where .= sprintf(" AND `sid` LIKE %s ", $pdo->quote('%'. $keyword. '%'));
+    $where .= sprintf(" AND `%s` = %s ", $cate, $pdo->quote($keyword));
+    // echo $where;
+    // exit;
     $qs['keyword'] = $keyword;
+    $qs['cate'] = $cate;
+    $qs['date'] = $date;
 }
-
-
+// SELECT * FROM `order_list` WHERE `order_date` LIKE '%2021-08-19%' ORDER BY `sid` DESC
 
 // 查詢資料庫中所有訂單資訊
-$sql = sprintf("SELECT * FROM `order_list` %s ORDER BY `order_list`.`sid` DESC",$where);
+$sql = sprintf("SELECT * FROM `order_list` %s ORDER BY `order_list`.`sid` DESC", $where);
 $rows = $pdo->query($sql)->fetchAll();
-
 
 
 ?>
@@ -30,11 +38,24 @@ $rows = $pdo->query($sql)->fetchAll();
 </style>
 
 <div class="container">
-    <div class="row justify-content-center pt-3">
-        <form action="order-list.php" class="form-inline my-2 my-lg-0 d-flex justify-content-end">
-            <input class="form-control mr-sm-2" type="search" name="keyword" placeholder="輸入訂單編號" + value="<?= htmlentities($keyword) ?>" + aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+    <div class="row justify-content-center p-3">
+        <div class="col"></div>
+        <div class="col">
+            <form action="order-list.php" class="form-inline my-2 my-lg-0 d-flex justify-content-end">
+                <div>
+                    <select name="cate" id="cate" class="form-control">
+                        <option value="sid">訂單編號</option>
+                        <option value="member_id">會員編號</option>
+                    </select>
+                    <input class="form-control mr-sm-2" type="search" name="keyword" placeholder="輸入編號" + value="<?= htmlentities($keyword) ?>" + aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜尋</button>
+                </div>
+                <div>
+                    <input name="date" type="date" class="form-control" value="<?=$date?>">
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 <div class="list">
