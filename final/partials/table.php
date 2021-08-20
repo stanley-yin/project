@@ -40,7 +40,8 @@
     <tbody>
 
         <?php foreach ($rows as $r) : ?>
-            <tr>
+            <tr>              
+                <!-- 加入購物車的按鈕 -->
                 <td>
                     <a href="addcart.php?sid=<?= $r['sid'] ?>">
                         <i class="fas fa-cart-plus"></i>
@@ -73,3 +74,4 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+

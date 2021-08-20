@@ -27,7 +27,7 @@
                     <a class="nav-link" href="#">商品</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">查看訂單</a>
+                    <a class="nav-link" href="order-list.php">查看訂單</a>
                 </li>
 
             </ul>

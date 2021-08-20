@@ -1,23 +1,20 @@
-<?php
-include __DIR__ . '/partials/init.php';
+<?php include __DIR__ . '/partials/init.php'; ?>
 
-
-?>
 
 <?php include __DIR__ . '/partials/html-head.php' ?>
 <?php include __DIR__ . '/partials/navbar.php' ?>
 
-
-
-<?php if (!isset($_SESSION['shoplist'])):?>
+<!-- 購物車沒有物品時顯現 -->
+<?php if (!isset($_SESSION['shoplist'])) : ?>
     <div class="container text-center pt-5">
         <h3>購物車沒有商品</h3>
     </div>
-    <?php exit;?>
-<?php endif;?>
+    <?php exit; ?>
+<?php endif; ?>
 
 <?php
-// 計算總金額
+
+// 計算總金額 total
 $total = 0;
 foreach ($_SESSION['shoplist'] as $s) {
     if ($s['special_offer'] == '暫無') {
@@ -27,13 +24,14 @@ foreach ($_SESSION['shoplist'] as $s) {
     }
 }
 ?>
+
+
 <style>
     img {
         width: 100px;
         height: 100px;
     }
 </style>
-<!-- 購物狀態列 -->
 <!-- 商品購物清單 -->
 <div class="container">
     <div class="row">
@@ -90,22 +88,22 @@ foreach ($_SESSION['shoplist'] as $s) {
             <form name="form1" onsubmit="checkForm(); return false;">
                 <div class="form-group">
                     <label for="delivery">送貨方式</label>
-                    <select class="form-select" aria-label="Default select example" id="delivery" name="delivery">
+                    <select class="form-control" aria-label="Default select example" id="delivery" name="delivery">
                         <option selected value="自取">自取</option>
                         <option value="宅配">宅配</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="payment">付款方式</label>
-                    <select class="form-select" aria-label="Default select example" id="payment" name="payment">
+                    <select class="form-control" aria-label="Default select example" id="payment" name="payment">
                         <option selected value="信用卡">信用卡</option>
                         <option value="銀行轉帳">銀行轉帳</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="addressee_name1">收件人姓名</label>
-                    <input type="text" class="form-control" id="addressee_name1" name="addressee_name">
-                    <!-- <small class="form-text"></small> -->
+                    <label for="addressee_name">收件人姓名</label>
+                    <input type="text" class="form-control" id="addressee_name" name="addressee_name">
+                    <small class="form-text"></small>
                 </div>
                 <div class="form-group">
                     <label for="mobile">收件人電話</label>
@@ -117,47 +115,60 @@ foreach ($_SESSION['shoplist'] as $s) {
                     <input type="text" class="form-control" id="address" name="address">
                     <small class="form-text"></small>
                 </div>
-                <input type="hidden" name="total" value="<?=$total?>">
+                <input type="hidden" name="total" value="<?= $total ?>">
                 <button type="submit" class="btn btn-primary">送出訂單</button>
             </form>
         </div>
 
 
-        <!-- 按鈕
-        <div class="col">
-            <div class="row">
-                <a href="data-list.php">
-                    <button>返回商品列表</button>
-                </a>
-                <a href="cartdata-insert.php"><button>確認送出訂單</button></a>
-            </div>
-        </div>
-    </div>
-</div> -->
 
+        <?php include __DIR__ . '/partials/script.php' ?>
+        <script>
+            const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/;
 
+            const name = document.querySelector('#addressee_name');
+            const mobile = document.querySelector('#mobile');
 
-<?php include __DIR__ . '/partials/script.php' ?>
-<script>
-    function checkForm() {
-        const fd = new FormData(document.form1);
-        fetch('order-list-insert.php', {
-                method: 'POST',
-                body: fd
-            })
-            .then(r => r.json())
-            .then(obj => {
-                console.log(obj);
-                if (obj.success) {
-                    alert('訂單成功送出')
-                    window.location = "order-detail-insert.php";
-                } else {
-                    alert(obj.error);
+            function checkForm() {
+
+                name.nextElementSibling.innerHTML = '';
+                name.style.border = '1px solid #cccccc';
+                mobile.nextElementSibling.innerHTML = '';
+                mobile.style.border = '1px solid #cccccc';
+
+                let isPass = true;
+                if (name.value.length < 2) {
+                    isPass = false;
+                    name.nextElementSibling.innerHTML = '請填寫正確的姓名'
+                    name.style.border = '1px solid red';
                 }
-            })
-            .catch(error => {
-                console.log('error', error);
-            })
-    }
-</script>
-<?php include __DIR__ . '/partials/html-foot.php' ?>
+                if (!mobile_re.test(mobile.value)) { //test() 方法执行一个检索，用来查看正则表达式与指定的字符串是否匹配。返回 true 或 false。
+                    isPass = false;
+                    mobile.nextElementSibling.innerHTML = '請填寫正確的手機格式'
+                    mobile.style.border = '1px solid red';
+                }
+
+                if (isPass) {
+                    const fd = new FormData(document.form1);
+                    fetch('order-list-insert.php', {
+                            method: 'POST',
+                            body: fd
+                        })
+                        .then(r => r.json())
+                        .then(obj => {
+                            console.log(obj);
+                            if (obj.success) {
+                                alert('訂單成功送出')
+                                window.location = "order-detail-insert.php";
+                            } else {
+                                alert(obj.error);
+                            }
+                        })
+                        .catch(error => {
+                            console.log('error', error);
+                        })
+                }
+
+            }
+        </script>
+        <?php include __DIR__ . '/partials/html-foot.php' ?>
