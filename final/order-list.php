@@ -13,6 +13,7 @@ $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 $cate = isset($_GET['cate']) ? $_GET['cate'] : '';
 // 搜尋時間條件
 $date = isset($_GET['date']) ? $_GET['date'] : '';
+// 整合所有條件
 $where = isset($_GET['date']) ? sprintf(" WHERE `order_date` LIKE '%s%s%s'",'%',$_GET['date'],'%'): 'WHERE 1';
 if (!empty($keyword)) {
     $where .= sprintf(" AND `%s` = %s ", $cate, $pdo->quote($keyword));
@@ -22,7 +23,6 @@ if (!empty($keyword)) {
     $qs['cate'] = $cate;
     $qs['date'] = $date;
 }
-// SELECT * FROM `order_list` WHERE `order_date` LIKE '%2021-08-19%' ORDER BY `sid` DESC
 
 // 查詢資料庫中所有訂單資訊
 $sql = sprintf("SELECT * FROM `order_list` %s ORDER BY `order_list`.`sid` DESC", $where);

@@ -53,8 +53,8 @@ if(empty($r)){
                             <div class="form-group">
                                 <label for="delivery">送貨方式</label>
                                 <select class="form-control" name="delivery" id="delivery">
-                                    <option value="宅配">宅配</option>
                                     <option value="自取">自取</option>
+                                    <option value="宅配">宅配</option>
                                 </select>
                                 <small class=" form-text "></small>
                             </div>

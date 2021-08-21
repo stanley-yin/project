@@ -89,7 +89,7 @@ foreach ($_SESSION['shoplist'] as $s) {
                 <div class="form-group">
                     <label for="delivery">送貨方式</label>
                     <select class="form-control" aria-label="Default select example" id="delivery" name="delivery">
-                        <option selected value="自取">自取</option>
+                        <option value="自取">自取</option>
                         <option value="宅配">宅配</option>
                     </select>
                 </div>
