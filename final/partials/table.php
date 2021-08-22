@@ -19,6 +19,7 @@
             <th scope="col">
                 <i class="fas fa-cart-plus"></i>
             </th>
+            <th>購物車ajax</th>
             <th>sid<br>(商品編號)</th>
             <th>Name<br>(商品名稱)</th>
             <th>categories_sid<br>(商品類別編號)</th>
@@ -40,12 +41,16 @@
     <tbody>
 
         <?php foreach ($rows as $r) : ?>
-            <tr>              
+            <tr data-sid="<?= $r['sid'] ?>">
                 <!-- 加入購物車的按鈕 -->
                 <td>
                     <a href="addcart.php?sid=<?= $r['sid'] ?>">
                         <i class="fas fa-cart-plus"></i>
                     </a>
+                </td>
+                <!-- ajax -->
+                <td>
+                    <i class="fas fa-cart-plus ajaxadd"></i>
                 </td>
                 <td><?php echo $r["sid"]; ?> </td>
                 <td><?php echo $r["Name"]; ?> </td>
@@ -75,3 +80,23 @@
     </tbody>
 </table>
 
+<script>
+    const myTable = document.querySelector('table');
+    const cart = document.querySelector('#cart');
+
+    myTable.addEventListener('click', function(event) {
+        if (event.target.classList.contains('ajaxadd')) {
+            const tr = event.target.closest('tr');
+            const sid = event.target.closest('tr').getAttribute('data-sid');
+            
+            console.log(sid);
+
+            fetch('addcart.php?sid=' + sid)
+                .then(r => r.json())
+                .then(obj => {
+                    console.log(obj);
+                    cart.innerHTML = obj.total;
+                })
+        }
+    })
+</script>

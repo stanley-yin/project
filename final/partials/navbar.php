@@ -2,6 +2,7 @@
     .cart-icon{
         padding-top: 6px;
     }
+
 </style>
 
 
@@ -45,12 +46,10 @@
                 </li>
                 <li class="nav-item active cart-icon">
                         <a class="nav-link" href="cart-check.php" >
-                            <i class="fas fa-shopping-cart"><?= isset($_SESSION['total']) ? $_SESSION['total']: ''; ?></i>
+                            <i class="fas fa-shopping-cart" id="cart"><?= isset($_SESSION['total']) ? $_SESSION['total']: ''; ?></i>
                         </a>
                 </li>
-
             </ul>
-
         </div>
     </div>
 </nav>

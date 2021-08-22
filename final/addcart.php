@@ -21,6 +21,7 @@ if( isset($_SESSION['shoplist'][$shop['sid']])){
 
 // print_r($_SESSION);
 
-header('Location:data-list.php');
+echo json_encode($_SESSION,JSON_UNESCAPED_UNICODE);
+// header('Location:data-list.php');
 
 ?>

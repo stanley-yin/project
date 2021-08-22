@@ -69,6 +69,9 @@ if ($totalRows != 0) {
     <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
     <title>data-list</title>
     <style>
+        .navbar{
+            position: fixed;
+        }
         h1 {
             text-align: center;
             margin: 30px;
@@ -119,10 +122,10 @@ if ($totalRows != 0) {
             table-layout: fixed
         }
 
-        thead tr th {
+        /* thead tr th {
             position: sticky;
             top: -1px;
-        }
+        } */
 
         th,
         td {
