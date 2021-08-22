@@ -1,4 +1,4 @@
-<?php include __DIR__ . '/partials/init.php';?>
+<?php include __DIR__ . '/partials/init.php'; ?>
 
 
 <?php
@@ -7,7 +7,7 @@ $sql = sprintf("SELECT * FROM `order_list` WHERE `sid` = %s", $_GET['sid']);
 $r = $pdo->query($sql)->fetch();
 
 // 避免直接拜訪
-if(empty($r)){
+if (empty($r)) {
     header('Location: order-list.php');
     exit;
 };
@@ -23,12 +23,12 @@ if(empty($r)){
                 <div class="card-body">
                     <form class="d-flex flex-column" name="form1" onsubmit="checkForm(); return false;">
                         <div class="form-group">
-                            <input type="hidden" id="sid" name="sid" value="<?=$r['sid']?>">
+                            <input type="hidden" id="sid" name="sid" value="<?= $r['sid'] ?>">
                             <!-- disabled 不可做變更的資料 -->
                             <div class="row">
                                 <div class="col">
                                     <label for="sid">訂單編號</label>
-                                    <input type="text" class="form-control" id="sid" name="sid" placeholder="<?= $r['sid'] ?>" value="<?= $r['sid'] ?>"disabled>
+                                    <input type="text" class="form-control" id="sid" name="sid" placeholder="<?= $r['sid'] ?>" value="<?= $r['sid'] ?>" disabled>
                                     <small class=" form-text "></small>
                                 </div>
                                 <div class="col">
@@ -45,16 +45,27 @@ if(empty($r)){
                             <div class="form-group">
                                 <label for="payment">付款方式</label>
                                 <select class="form-control" name="payment" id="payment">
-                                    <option value="信用卡">信用卡</option>
-                                    <option value="銀行轉帳">銀行轉帳</option>
+                                    <?php if ($r['payment'] == '信用卡') : ?>
+                                        <option value="信用卡">信用卡</option>
+                                        <option value="銀行轉帳">銀行轉帳</option>
+                                    <?php else : ?>
+                                        <option value="銀行轉帳">銀行轉帳</option>
+                                        <option value="信用卡">信用卡</option>
+                                    <?php endif; ?>
                                 </select>
                                 <small class=" form-text "></small>
                             </div>
                             <div class="form-group">
                                 <label for="delivery">送貨方式</label>
                                 <select class="form-control" name="delivery" id="delivery">
-                                    <option value="宅配">宅配</option>
-                                    <option value="自取">自取</option>
+                                    <?php if ($r['delivery'] == '宅配') : ?>
+                                        <option value="宅配">宅配</option>
+                                        <option value="自取">自取</option>
+                                    <?php else : ?>
+                                        <option value="自取">自取</option>
+                                        <option value="宅配">宅配</option>
+                                    <?php endif; ?>
+
                                 </select>
                                 <small class=" form-text "></small>
                             </div>
@@ -82,7 +93,7 @@ if(empty($r)){
                                 </select>
                                 <small class=" form-text "></small>
                             </div>
-                            <button type="submit" class="btn btn-primary">更新</button>                          
+                            <button type="submit" class="btn btn-primary">更新</button>
                     </form>
                 </div>
             </div>
